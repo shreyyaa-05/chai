@@ -3,7 +3,7 @@
 #include <string>
 #include <cstdlib>
 using namespace std;
-
+// cheating
 struct Option {
     int time, lab;
 };
