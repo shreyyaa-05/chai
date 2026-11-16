@@ -7,7 +7,7 @@ using namespace std;
 struct Option {
     int time, lab;
 };
-
+// no cheating
 string name[] = {"A", "B", "C"};
 
 vector<Option> domain[3] = {
