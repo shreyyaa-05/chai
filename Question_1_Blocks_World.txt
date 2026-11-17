@@ -1,0 +1,45 @@
+Q1. Blocks World
+
+The four blocks A, B, C and D are initially on the table. We need to put A on C and D on B.
+
+Predicates used:
+OnTable(x) - x is on the table
+On(x, y) - x is placed on y
+Clear(x) - nothing is on top of x
+Holding(x) - the robot is holding x
+HandEmpty - the robot's hand is empty
+
+Initial state:
+OnTable(A), OnTable(B), OnTable(C), OnTable(D)
+Clear(A), Clear(B), Clear(C), Clear(D), HandEmpty
+
+Goal state:
+On(A, C) AND On(D, B)
+
+Goal stack planning:
+We can achieve On(A, C) first, then On(D, B). Since all blocks are clear and on the table, no blocks need to be moved out of the way.
+
+To achieve On(A, C):
+- PickUp(A) requires OnTable(A), Clear(A) and HandEmpty.
+- Stack(A, C) requires Holding(A) and Clear(C).
+
+To achieve On(D, B):
+- PickUp(D) requires OnTable(D), Clear(D) and HandEmpty.
+- Stack(D, B) requires Holding(D) and Clear(B).
+
+So the goal stack can be worked through as:
+Goal: On(A, C), On(D, B)
+  On(A, C) -> Stack(A, C) -> PickUp(A)
+  On(D, B) -> Stack(D, B) -> PickUp(D)
+
+Actions in execution order:
+1. PickUp(A)
+2. Stack(A, C)
+3. PickUp(D)
+4. Stack(D, B)
+
+Final state:
+On(A, C), On(D, B), OnTable(C), OnTable(B)
+Clear(A), Clear(D), HandEmpty
+
+Both goals are satisfied.
