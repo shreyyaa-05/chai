@@ -1,0 +1,39 @@
+Q2. Research Fellowship Knowledge Base
+
+(i) FOL representation of the four policies
+
+1. Every student studies at least one course.
+   forall x [Student(x) -> exists y (Course(y) AND Studies(x, y))]
+
+2. A student who studies and passes the same course is qualified.
+   forall x forall y [(Student(x) AND Course(y) AND Studies(x, y) AND Passed(x, y)) -> Qualified(x)]
+
+3. A qualified student supervised by a professor is a researcher.
+   forall x forall p [(Qualified(x) AND Professor(p) AND Supervises(p, x)) -> Researcher(x)]
+
+4. Every researcher is eligible for the fellowship.
+   forall x [Researcher(x) -> Eligible(x)]
+
+(ii) Does the first statement mean everyone studies the same course or that everyone studies AI?
+
+No to both. The statement says that each student studies at least one course. It doesn't say that the course has to be the same for everyone.
+
+For example, the given facts say Studies(Ravi, AI) and Studies(Anu, ML). So we cannot conclude that every student studies AI.
+
+(iii) Can we derive Eligible(Ravi)?
+
+Yes. We can apply the rules one after another.
+
+Step 1: We have Student(Ravi), Course(AI), Studies(Ravi, AI) and Passed(Ravi, AI).
+Using policy 2, we get the new fact:
+Qualified(Ravi)
+
+Step 2: We have Qualified(Ravi), Professor(DrSharma) and Supervises(DrSharma, Ravi).
+Using policy 3, we get:
+Researcher(Ravi)
+
+Step 3: Policy 4 says every researcher is eligible.
+Since Researcher(Ravi) is true, we get:
+Eligible(Ravi)
+
+Hence Eligible(Ravi) can be derived from the given facts and rules.
