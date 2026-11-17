@@ -1,52 +1,37 @@
-#include <bits/stdc++.h>
+#include <iostream>
+#include <vector>
+#include <string>
 using namespace std;
 
 int main() {
-    vector<vector<double>> T = {
-        {0.5, 0.25, 0.25},
-        {1.0 / 3, 0, 2.0 / 3},
-        {0.5, 0.5, 0}
-    };
+    // Initial state: A, B, C and D are all on the table.
+    cout << "QUESTION 1: BLOCKS WORLD\n\n";
 
-    vector<double> state = {0, 1, 0};
+    cout << "Predicates:\n";
+    cout << "OnTable(x): x is on the table\n";
+    cout << "On(x, y): x is on block y\n";
+    cout << "Clear(x): no block is on x\n";
+    cout << "Holding(x): the robot is holding x\n";
+    cout << "HandEmpty: the robot is holding nothing\n\n";
 
-    cout << fixed << setprecision(6);
+    cout << "Initial state:\n";
+    cout << "OnTable(A), OnTable(B), OnTable(C), OnTable(D)\n";
+    cout << "Clear(A), Clear(B), Clear(C), Clear(D), HandEmpty\n\n";
 
-    cout << "Transition Probability Matrix:\n";
-    for (auto row : T) {
-        for (double x : row)
-            cout << x << " ";
-        cout << "\n";
-    }
+    cout << "Goal state:\n";
+    cout << "On(A, C) AND On(D, B)\n\n";
 
-    cout << "\nDay 0: ";
-    for (double x : state)
-        cout << x << " ";
+    cout << "Goal Stack (top to bottom):\n";
+    cout << "1. On(A, C)\n";
+    cout << "2. On(D, B)\n\n";
 
-    for (int day = 1; day <= 10000; day++) {
-        vector<double> next(3, 0);
+    cout << "Action sequence:\n";
+    cout << "1. PickUp(A)\n";
+    cout << "2. Stack(A, C)\n";
+    cout << "3. PickUp(D)\n";
+    cout << "4. Stack(D, B)\n\n";
 
-        for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 3; j++) {
-                next[j] += state[i] * T[i][j];
-            }
-        }
-
-        double diff = 0;
-
-        for (int i = 0; i < 3; i++)
-            diff = max(diff, abs(next[i] - state[i]));
-
-        state = next;
-
-        cout << "\nDay " << day << ": ";
-        for (double x : state)
-            cout << x << " ";
-
-        if (diff < 1e-10)
-            break;
-    }
-
-    cout << "\n";
+    cout << "Final state:\n";
+    cout << "On(A, C), On(D, B), OnTable(B), OnTable(C)\n";
     return 0;
 }
